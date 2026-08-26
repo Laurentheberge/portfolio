@@ -56,6 +56,10 @@ export async function GET() {
 
   try {
     const credentials = JSON.parse(keyJson);
+    // Fix mangled newlines in private key from Vercel env var paste
+    if (credentials.private_key) {
+      credentials.private_key = credentials.private_key.replace(/\\n/g, '\n');
+    }
     const accessToken = await getAccessToken(credentials);
 
     const url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/Sheet1!A:D`;
@@ -80,6 +84,6 @@ export async function GET() {
     return NextResponse.json(reviews);
   } catch (error) {
     console.error('Failed to fetch reviews:', error);
-    return NextResponse.json([]);
+    return NextResponse.json({ error: String(error) }, { status: 500 });
   }
 }
