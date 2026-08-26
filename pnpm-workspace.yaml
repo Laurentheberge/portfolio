@@ -1,0 +1,15 @@
+packages:
+  - "apps/*"
+  - "packages/*"
+
+onlyBuiltDependencies:
+  - "@biomejs/biome"
+  - "@parcel/watcher"
+  - "@tailwindcss/oxide"
+  - "@vercel/speed-insights"
+  - "bufferutil"
+  - "core-js"
+  - "core-js-pure"
+  - "esbuild"
+  - "msw"
+  - "sharp"
