@@ -1,5 +1,4 @@
 import type { NextAuthConfig } from 'next-auth';
-import Github from 'next-auth/providers/github';
 
 export type User = {
   name: string;
@@ -14,19 +13,7 @@ const authConfig: NextAuthConfig = {
   session: {
     strategy: 'jwt',
   },
-  providers: [
-    Github({
-      clientId: process.env.GITHUB_ID,
-      clientSecret: process.env.GITHUB_SECRET,
-      authorization: {
-        params: {
-          prompt: 'consent',
-          access_type: 'offline',
-          response_type: 'code',
-        },
-      },
-    }),
-  ],
+  providers: [],
   callbacks: {
     session({ session, token }) {
       if (session?.user && token.sub) {
