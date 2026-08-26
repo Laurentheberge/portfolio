@@ -63,6 +63,7 @@ You're free to use my code! Just make sure to <ins>remove all my personal inform
 - [Next.js](https://nextjs.org)
 - [Tailwind CSS](https://tailwindcss.com)
 - [Radix UI](https://www.radix-ui.com)
+- [Ruizen UI](https://github.com/ruixenui/portfolio)
 - [Motion](https://motion.dev)
 - [shadcn/ui](https://ui.shadcn.com)
 - [Aceternity UI](https://ui.aceternity.com)
