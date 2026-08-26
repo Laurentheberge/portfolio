@@ -100,10 +100,6 @@ let nextConfig = {
         source: '/craft/:slug.mdx',
         destination: '/blog.mdx/:slug',
       },
-      {
-        source: '/stats/:match*',
-        destination: 'https://analytics.saiyantific.dev/:match*',
-      },
     ];
   },
 };

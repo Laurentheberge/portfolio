@@ -7,15 +7,13 @@ type MetadataGenerator = Omit<Metadata, 'description' | 'title'> & {
   image?: string;
 };
 
-const applicationName = 'Ruixen';
+const applicationName = 'Saiyantific';
 const author: Metadata['authors'] = {
-  name: 'Ruixen',
-  url: 'https://portfolio-ruixens-projects.vercel.app/',
+  name: 'Saiyantific',
+  url: 'https://saiyantific.dev',
 };
-const publisher = 'Ruixen';
-const twitterHandle = '@ruixen_ui';
-const protocol = process.env.NODE_ENV === 'production' ? 'https' : 'http';
-const productionUrl = 'https://portfolio-ruixens-projects.vercel.app/';
+const publisher = 'Saiyantific';
+const twitterHandle = '@hochster_Mann';
 
 export const createMetadata = ({
   title,
@@ -28,9 +26,6 @@ export const createMetadata = ({
     title: parsedTitle,
     description,
     applicationName,
-    metadataBase: productionUrl
-      ? new URL(`${protocol}://${productionUrl}`)
-      : undefined,
     authors: [author],
     creator: author.name,
     formatDetection: {
