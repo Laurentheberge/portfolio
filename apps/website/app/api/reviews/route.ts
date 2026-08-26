@@ -8,6 +8,7 @@ interface SheetReview {
   role: string;
   review: string;
   date: string;
+  rating: string;
 }
 
 function getAccessToken(credentials: {
@@ -71,7 +72,7 @@ export async function GET() {
       metaData.sheets?.[0]?.properties?.title || 'Sheet1';
 
     // Fetch all data from columns A-D
-    const url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${encodeURIComponent(sheetName)}!A:D`;
+    const url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${encodeURIComponent(sheetName)}!A:E`;
     const res = await fetch(url, {
       headers: { Authorization: `Bearer ${accessToken}` },
     });
@@ -88,6 +89,7 @@ export async function GET() {
       role: row[1] || '',
       review: row[2] || '',
       date: row[3] || '',
+      rating: row[4] || '',
     }));
 
     return NextResponse.json(reviews);

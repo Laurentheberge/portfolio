@@ -8,11 +8,27 @@ interface Review {
   role: string;
   review: string;
   date: string;
+  rating: string;
 }
 
-function ReviewCard({ name, role, review }: Review) {
+function Stars({ rating }: { rating: string }) {
+  const num = parseInt(rating, 10);
+  if (!num || num < 1 || num > 5) return null;
+  return (
+    <div className="flex gap-0.5 mb-3">
+      {Array.from({ length: 5 }, (_, i) => (
+        <span key={i} className={i < num ? 'text-yellow-400' : 'text-foreground/20'}>
+          &#9733;
+        </span>
+      ))}
+    </div>
+  );
+}
+
+function ReviewCard({ name, role, review, rating }: Review) {
   return (
     <div className="rounded-xl ring-1 ring-foreground/10 p-5 transition-colors ease-out ring-inset hover:bg-accent/50">
+      <Stars rating={rating} />
       <p className="text-foreground/80 text-sm leading-relaxed mb-4">
         &ldquo;{review}&rdquo;
       </p>
