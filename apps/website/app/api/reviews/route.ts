@@ -51,18 +51,27 @@ export async function GET() {
   const keyJson = process.env.GOOGLE_SERVICE_ACCOUNT_KEY;
 
   if (!sheetId || !keyJson) {
-    return NextResponse.json([]);
+    return NextResponse.json({ error: 'Missing env vars' }, { status: 500 });
   }
 
   try {
     const credentials = JSON.parse(keyJson);
-    // Fix mangled newlines in private key from Vercel env var paste
     if (credentials.private_key) {
       credentials.private_key = credentials.private_key.replace(/\\n/g, '\n');
     }
     const accessToken = await getAccessToken(credentials);
 
-    const url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/Sheet1!A:D`;
+    // Get the actual sheet name (auto-detect)
+    const metaRes = await fetch(
+      `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}?fields=sheets.properties.title`,
+      { headers: { Authorization: `Bearer ${accessToken}` } },
+    );
+    const metaData = await metaRes.json();
+    const sheetName =
+      metaData.sheets?.[0]?.properties?.title || 'Sheet1';
+
+    // Fetch all data from columns A-D
+    const url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${encodeURIComponent(sheetName)}!A:D`;
     const res = await fetch(url, {
       headers: { Authorization: `Bearer ${accessToken}` },
     });
